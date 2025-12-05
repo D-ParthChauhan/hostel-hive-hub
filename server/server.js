@@ -20,13 +20,19 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ MongoDB Connected'))
   .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
-// Routes
+// --- Import Routes ---
+const authRoutes = require('./routes/auth');           // <--- NEW
 const complaintRoutes = require('./routes/complaints');
+const communityRoutes = require('./routes/community'); // <--- NEW
+
+// --- Use Routes ---
+app.use('/api/auth', authRoutes);                      // <--- NEW
 app.use('/api/complaints', complaintRoutes);
+app.use('/api/community', communityRoutes);            // <--- NEW
 
 // Health Check
 app.get('/', (req, res) => {
-  res.send('Hostel Hive Hub API is running...');
+  res.send('Hostel Hive Hub API is Running!');
 });
 
 app.listen(PORT, () => {

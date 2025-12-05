@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext'; // Changed to relative path
 import { Sun, Moon } from 'lucide-react';
 import { toast } from 'sonner';
+import { loginUser } from '../services/api'; // Changed to relative path
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,19 +15,36 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login - replace with actual auth
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const { data } = await loginUser({ email, password });
+      
+      // Store user info and token
+      localStorage.setItem('h5_user', JSON.stringify(data));
+      
+      toast.success(`Welcome back, ${data.user.name}`, {
+        description: `Logged in as ${data.user.role}`,
+      });
 
-    toast.error('Authentication Required', {
-      description: 'Please connect to Supabase to enable login functionality.',
-    });
+      // Redirect to home page
+      navigate('/');
+      
+      // Force reload to update navbar state (simple way)
+      window.location.reload();
 
-    setIsLoading(false);
+    } catch (err: any) {
+      console.error(err);
+      toast.error('Login Failed', {
+        description: err.response?.data?.message || 'Invalid credentials or server error',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,12 +58,7 @@ const Login: React.FC = () => {
         animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="absolute bottom-1/4 right-10 w-40 h-40 rounded-full bg-hostel-secondary/10 blur-3xl"
-        animate={{ y: [0, 30, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-
+      
       {/* Top Bar */}
       <div className="fixed top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
         <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
@@ -65,7 +78,6 @@ const Login: React.FC = () => {
         className="relative w-full max-w-md"
       >
         <div className="glass-strong rounded-3xl p-8 md:p-10">
-          {/* Logo */}
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-lg shadow-primary/30">
@@ -76,7 +88,6 @@ const Login: React.FC = () => {
             <p className="text-muted-foreground">Sign in to access your Hostel 5 account</p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="text-sm font-medium mb-2 block">Email</label>
@@ -86,7 +97,7 @@ const Login: React.FC = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
+                  placeholder="gsec@hostel5.iitb.ac.in"
                   required
                   className="pl-10 rounded-xl"
                 />
@@ -115,14 +126,6 @@ const Login: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded border-border" />
-                <span className="text-muted-foreground">Remember me</span>
-              </label>
-              <a href="#" className="text-primary hover:underline">Forgot password?</a>
-            </div>
-
             <Button
               type="submit"
               variant="glow"
@@ -133,20 +136,6 @@ const Login: React.FC = () => {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-
-          {/* Info */}
-          <div className="mt-8 p-4 rounded-xl bg-muted/50 border border-border">
-            <p className="text-xs text-muted-foreground text-center">
-              <strong className="text-foreground">Note:</strong> Login is restricted to registered hostel residents. 
-              Contact the hostel office if you need access.
-            </p>
-          </div>
-
-          {/* Role Info */}
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            <p>Council members have additional privileges</p>
-            <p>to manage hostel content and data.</p>
-          </div>
         </div>
       </motion.div>
     </div>
