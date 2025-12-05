@@ -16,35 +16,32 @@ router.get('/', verifyCouncil, async (req, res) => {
 
 // ADD a new user (Council only)
 router.post('/', verifyCouncil, async (req, res) => {
-  const { name, email, password, role, roomNumber } = req.body;
+  const { name, email, password, role, roomNumber, rollNumber, phoneNumber, image } = req.body;
+  
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Please enter all required fields' });
+  }
+
   try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+    
     const newUser = new User({ 
       name, 
       email, 
       password: hashedPassword, 
       role: role || 'student', 
-      roomNumber 
+      roomNumber,
+      rollNumber,
+      phoneNumber,
+      image // Save image URL
     });
+    
     await newUser.save();
     res.status(201).json(newUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-// UPDATE a user (Council only)
-router.patch('/:id', verifyCouncil, async (req, res) => {
-  try {
-    const updates = req.body;
-    // If updating password, hash it
-    if (updates.password) {
-      const salt = await bcrypt.genSalt(10);
-      updates.password = await bcrypt.hash(updates.password, salt);
-    }
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true }).select('-password');
-    res.json(updatedUser);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

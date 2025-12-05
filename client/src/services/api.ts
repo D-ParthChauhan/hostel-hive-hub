@@ -14,19 +14,29 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// --- Auth APIs ---
-export const loginUser = (credentials) => API.post('/auth/login', credentials);
-export const registerUser = (userData) => API.post('/auth/register', userData); // Council only
+// Auth
+export const loginUser = (credentials: any) => API.post('/auth/login', credentials);
+export const registerUser = (userData: any) => API.post('/auth/register', userData);
 
-// --- Complaint APIs ---
+// Complaints
 export const fetchComplaints = () => API.get('/complaints');
-export const createComplaint = (data) => API.post('/complaints', data);
-export const updateComplaintStatus = (id, status) => API.patch(`/complaints/${id}`, { status });
+export const createComplaint = (data: any) => API.post('/complaints', data);
+export const updateComplaintStatus = (id: string, status: string) => API.patch(`/complaints/${id}`, { status });
 
-// --- Community APIs ---
+// Community
 export const fetchSubreddits = () => API.get('/community/subreddits');
-export const createSubreddit = (data) => API.post('/community/subreddits', data); // Council only
-export const fetchPosts = (subreddit) => API.get(`/community/posts${subreddit ? `?subreddit=${subreddit}` : ''}`);
-export const createPost = (data) => API.post('/community/posts', data);
+export const createSubreddit = (data: any) => API.post('/community/subreddits', data);
+export const fetchPosts = (subreddit?: string) => API.get(`/community/posts${subreddit ? `?subreddit=${subreddit}` : ''}`);
+export const createPost = (data: any) => API.post('/community/posts', data);
+
+// Users (New)
+export const fetchUsers = () => API.get('/users');
+export const createUser = (data: any) => API.post('/users', data);
+export const deleteUser = (id: string) => API.delete(`/users/${id}`);
+
+// Events (New)
+export const createEvent = (data: any) => API.post('/events', data);
+export const deleteEvent = (id: string) => API.delete(`/events/${id}`);
+export const fetchEvents = () => API.get('/events');
 
 export default API;

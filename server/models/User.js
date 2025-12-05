@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -7,10 +6,13 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { 
     type: String, 
-    enum: ['student', 'council'], 
+    enum: ['student', 'student_council', 'council'], 
     default: 'student' 
   },
   roomNumber: { type: String },
+  rollNumber: { type: String },
+  phoneNumber: { type: String },
+  image: { type: String }, // URL for profile image
   createdAt: { type: Date, default: Date.now }
 });
 
