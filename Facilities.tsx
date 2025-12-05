@@ -2,123 +2,82 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Wifi, Utensils, Dumbbell, BookOpen, Shirt, 
-  Gamepad2, Coffee, Tv, Shield, Car, TreeDeciduous, Users,  Bike, Presentation, Store, Wrench, Music, PersonStanding
+  Gamepad2, Coffee, Tv, Shield, Car, TreeDeciduous, Users 
 } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 
 const facilities = [
   {
     icon: Utensils,
-    title: 'Mess',
-    description: 'A clean and spacious mess hall serving nutritious and hygienic meals.',
-    features: ['Breakfast, Lunch, Dinner', 'Special Lunch and Dinner', 'Gala Dinner'],
+    title: 'Mess Hall',
+    description: 'Spacious dining area serving nutritious meals with diverse menu options including regional cuisines.',
+    features: ['Breakfast, Lunch, Dinner', 'Weekend Special Menu', 'Hygienic Kitchen'],
   },
   {
     icon: Wifi,
-    title: 'WiFi Connectivity',
-    description: 'Hostel-wide high-speed internet connectivity for seamless academic and personal use.',
-    features: ['Fast', 'Wide Coverage', '24/7 Availability'],
+    title: 'High-Speed WiFi',
+    description: 'Campus-wide high-speed internet connectivity for seamless academic and personal use.',
+    features: ['24/7 Availability', '100 Mbps Speed', 'Secure Network'],
   },
-  // GYM REMOVED
-
+  {
+    icon: Dumbbell,
+    title: 'Gymnasium',
+    description: 'Fully equipped fitness center with modern equipment for strength and cardio training.',
+    features: ['Modern Equipment', 'Trainer Available', 'Extended Hours'],
+  },
   {
     icon: BookOpen,
-    title: 'Study Rooms',
+    title: 'Reading Room',
     description: 'Quiet study spaces with comfortable seating and adequate lighting for focused learning.',
-    features: ['Air Conditioned', 'Peaceful Ambience', 'Open 24/7'],
+    features: ['Air Conditioned', 'Reference Books', 'Open 24/7'],
   },
-
   {
     icon: Shirt,
     title: 'Laundry',
-    description:
-      'Dedicated affordable hostel laundry facility equipped with washing machines and drying units.',
+    description: 'On-campus laundry facility with washing machines and drying equipment.',
     features: ['Washing Machines', 'Drying Area', 'Iron Facilities'],
   },
-
   {
-    icon: Wrench,
-    title: 'Techroom',
-    description:
-      'A dedicated space equipped with essential technology to support academic work, group projects, and skill development.',
-    features: ['Quiet Work Environment', 'Tools & Equipment'],
+    icon: Gamepad2,
+    title: 'Recreation Room',
+    description: 'Entertainment zone with indoor games for relaxation and social interaction.',
+    features: ['Table Tennis', 'Carrom', 'Chess'],
   },
-
   {
     icon: Coffee,
     title: 'Common Room',
     description: 'Comfortable lounge area for casual meetups and group discussions.',
-    features: ['TV Area', 'Seating Space'],
+    features: ['TV Area', 'Seating Space', 'AC Equipped'],
   },
-
   {
-    icon: Music,
-    title: 'Music Room',
-    description:
-      'A dedicated space for students to relax, practice instruments, and explore their musical interests.',
-    features: ['Musical Instruments', 'Comfortable Seating', 'Casual Jam Sessions'],
+    icon: Tv,
+    title: 'TV Room',
+    description: 'Dedicated space with large screen TV for watching movies and sports together.',
+    features: ['Large Screen', 'DTH Connection', 'Comfortable Seating'],
   },
-
   {
     icon: Shield,
     title: '24/7 Security',
     description: 'Round-the-clock security with CCTV surveillance for resident safety.',
     features: ['Security Guards', 'CCTV Coverage', 'Visitor Log'],
   },
-
   {
-    icon: Bike, // <-- Use a cycle icon instead of Car
-    title: 'Cycle Parking',
-    description: 'Safe and secure parking area for bicycles designed for easy access.',
-    features: ['Covered & Secure', 'Convenient Location', 'Hassle-Free Access'],
+    icon: Car,
+    title: 'Parking',
+    description: 'Secure parking space for bicycles and two-wheelers.',
+    features: ['Covered Parking', 'Bike Stands', 'Well Lit'],
   },
-
   {
     icon: TreeDeciduous,
     title: 'Green Spaces',
     description: 'Beautiful gardens and outdoor seating areas for relaxation.',
-    features: ['Gardens', 'Benches', 'Open-Air Seating'],
+    features: ['Gardens', 'Benches', 'Walking Paths'],
   },
-
   {
     icon: Users,
     title: 'Sports Ground',
-    description:
-      'Well-maintained outdoor facilities for students to stay active, play, and enjoy team sports.',
-    features: ['Basketball Court', 'Volleyball Ground', 'Open for All'],
-  },
-
-  // ⭐ NEW ADDITIONS BELOW
-
-  {
-    icon: Presentation, // or any meeting-style icon
-    title: 'Conference Room',
-    description:
-      'A well-equipped space for meetings, discussions, and collaborative sessions.',
-    features: ['Spacious Seating', 'Air-Conditioned', 'Open for Student & Faculty Use'],
-  },
-
-  {
-    icon: Coffee, // or Utensils, or Store icon — your choice
-    title: 'Canteen',
-    description:
-      'A cozy space within Hostel 5 offering tasty snacks, beverages, and light meals for students to relax and recharge.',
-    features: ['Open Till Late Night', 'Tasty Food', 'Hygienic & Well-Maintained'],
-  },
-
-  {
-    icon: Store, // pick an appropriate icon
-    title: 'Shop',
-    description:
-      'A convenient in-hostel store catering to the daily needs of hostel residents.',
-    features: ['Quick & Easy Access', 'Affordable Prices', 'Essentials Available'],
-  },
-  {
-    icon: PersonStanding, // pick an appropriate icon
-    title: 'Dance',
-    description:
-      'A dedicated, well-equipped studio space for students to practice choreography, collaborate on routines, and express their creativity.',
-    features: ['Full-length Mirrors', 'Sound System', 'Rehearsal Space'],
+    description: 'Access to nearby sports facilities for outdoor activities.',
+    features: ['Cricket', 'Football', 'Basketball'],
   },
 ];
 
@@ -217,23 +176,23 @@ const Facilities: React.FC = () => {
                 <tbody>
                   <tr className="border-b border-border/50">
                     <td className="px-6 py-4 font-medium">Breakfast</td>
-                    <td className="px-6 py-4 text-muted-foreground">7:30 AM - 9:45 AM</td>
+                    <td className="px-6 py-4 text-muted-foreground">7:30 AM - 9:30 AM</td>
                     <td className="px-6 py-4 text-muted-foreground">8:00 AM - 10:00 AM</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-6 py-4 font-medium">Lunch</td>
-                    <td className="px-6 py-4 text-muted-foreground">12:00 PM - 2:15 PM</td>
-                    <td className="px-6 py-4 text-muted-foreground">12:00 PM - 2:15 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">12:00 PM - 2:30 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">12:30 PM - 3:00 PM</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-6 py-4 font-medium">Snacks</td>
-                    <td className="px-6 py-4 text-muted-foreground">4:30 PM - 6:15 PM</td>
-                    <td className="px-6 py-4 text-muted-foreground">4:30 PM - 6:30 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">5:00 PM - 6:00 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">5:00 PM - 6:00 PM</td>
                   </tr>
                   <tr>
                     <td className="px-6 py-4 font-medium">Dinner</td>
-                    <td className="px-6 py-4 text-muted-foreground">7:30 PM - 9:45 PM</td>
-                    <td className="px-6 py-4 text-muted-foreground">7:30 PM - 9:45 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">7:30 PM - 9:30 PM</td>
+                    <td className="px-6 py-4 text-muted-foreground">8:00 PM - 10:00 PM</td>
                   </tr>
                 </tbody>
               </table>

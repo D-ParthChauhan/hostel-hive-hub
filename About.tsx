@@ -4,19 +4,18 @@ import { Trophy, Users, Calendar, Target, Heart, Lightbulb } from 'lucide-react'
 import Layout from '@/components/layout/Layout';
 
 const milestones = [
-  { year: '1960s', event: 'Hostel 5 Founded', description: 'Established as part of the campus expansion, becoming one of its first boys’ hostels and a home to generations of students.'},
-  { year: '1970s-1980s', event: 'Culture Takes Shape', description: ' Penthouse identity grows stronger as traditions, hostel pride, and vibrant community life take root among early batches.'},
-  { year: '1990s–2000s', event: ' The Classic Era', description: ' Hostel 5 thrives as a space full of energy, friendships, late-night discussions, and unforgettable insti life — even as the building begins to show its age.' },
-  { year: '2010s', event: ' Spirit Continues', description: ' With deeper digital presence and active participation in hostel affairs, H5 maintains its charm and cultural identity across batches.' },
-  { year: '2020s–2022s', event: 'A New Chapter', description: ' Alumni across decades unite for the H5 Enhancement Project, leading to a major renovation effort and upgraded facilities for future residents.' },
-  { year: 'Today', event: ' Legacy Meets Modern Living', description: 'Penthouse stands refreshed — honoring its history while offering improved comfort, study spaces, and a thriving environment for new generations.' },
+  { year: '1970', event: 'Hostel 5 Founded', description: 'Established as part of the campus expansion.' },
+  { year: '1985', event: 'First Major Renovation', description: 'Modern amenities added to all floors.' },
+  { year: '2000', event: 'Cultural Hub Recognition', description: 'Awarded best hostel for cultural activities.' },
+  { year: '2015', event: 'Tech Infrastructure Upgrade', description: 'High-speed WiFi and smart systems installed.' },
+  { year: '2023', event: 'Sustainability Initiative', description: 'Green campus certification achieved.' },
 ];
-/*icon change*/
+
 const values = [
-  { icon: Trophy, title: 'Legacy With Purpose', description: 'More than just history — Hostel 5’s decades of experience shape a reliable and supportive environment where new students can build on what generations created before them.' },
-  { icon: Heart, title: 'A Home for Belonging', description: 'Penthouse is known for strong bonds, mentorship from seniors, and a family-like culture where everyone finds support — academically, socially, and personally.' },
-  { icon: Target, title: 'Built for Progress', description: 'Recently renovated with modern facilities and improved spaces, Hostel 5 fosters focus, productivity, and comfort — helping students thrive in their academic journey.' },
-  { icon: Lightbulb, title: 'Growth Through Community', description: 'Beyond academics, hostel life here encourages leadership, collaboration, responsibility, and confidence — preparing students for life beyond campus.' },
+  { icon: Heart, title: 'Brotherhood', description: 'A family away from home, supporting each other through thick and thin.' },
+  { icon: Trophy, title: 'Excellence', description: 'Striving for the best in academics, sports, and cultural activities.' },
+  { icon: Target, title: 'Leadership', description: 'Nurturing future leaders through responsibility and teamwork.' },
+  { icon: Lightbulb, title: 'Innovation', description: 'Encouraging creative thinking and novel solutions.' },
 ];
 
 const About: React.FC = () => {
@@ -141,11 +140,11 @@ const About: React.FC = () => {
           >
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="font-display text-5xl font-bold gradient-text mb-2">400+</div>
+                <div className="font-display text-5xl font-bold gradient-text mb-2">500+</div>
                 <div className="text-muted-foreground">Proud Residents</div>
               </div>
               <div>
-                <div className="font-display text-5xl font-bold gradient-text mb-2">65+</div>
+                <div className="font-display text-5xl font-bold gradient-text mb-2">50+</div>
                 <div className="text-muted-foreground">Years of Excellence</div>
               </div>
               <div>

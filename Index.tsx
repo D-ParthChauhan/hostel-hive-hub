@@ -7,31 +7,26 @@ import Layout from '@/components/layout/Layout';
 import heroImage from '@/assets/hero-hostel.jpg';
 
 const stats = [
-  { value: '400+', label: 'Residents', icon: Users },
-  { value: '65+', label: 'Years Legacy', icon: Award },
-  { value: '10+', label: 'Events/Year', icon: Calendar },
-  { value: '280+', label: 'Rooms shaping futures', icon: Building },
+  { value: '500+', label: 'Residents', icon: Users },
+  { value: '50+', label: 'Years Legacy', icon: Award },
+  { value: '100+', label: 'Events/Year', icon: Calendar },
+  { value: '4', label: 'Floors', icon: Building },
 ];
 
 const highlights = [
   {
-    title: 'Legacy With Purpose',
-    description: 'More than just history — Hostel 5’s decades of experience shape a reliable and supportive environment where new students can build on what generations created before them.',
+    title: 'State-of-the-art Facilities',
+    description: 'Modern amenities including high-speed WiFi, gym, and recreational spaces.',
     image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800',
   },
   {
-    title: 'A Home for Belonging',
-    description: 'Penthouse is known for strong bonds, mentorship from seniors, and a family-like culture where everyone finds support — academically, socially, and personally.',
+    title: 'Vibrant Community',
+    description: 'A diverse community of students from across the nation and beyond.',
     image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800',
   },
   {
-    title: 'Built for Progres',
-    description: 'Recently renovated with modern facilities and improved spaces, Hostel 5 fosters focus, productivity, and comfort — helping students thrive in their academic journey.',
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800',
-  },
-  {
-    title: 'Growth Through Community',
-    description: 'Beyond academics, hostel life here encourages leadership, collaboration, responsibility, and confidence — preparing students for life beyond campus.',
+    title: 'Rich Heritage',
+    description: 'Decades of excellence, traditions, and unforgettable memories.',
     image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800',
   },
 ];
