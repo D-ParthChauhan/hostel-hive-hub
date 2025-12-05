@@ -120,7 +120,7 @@ const Contact: React.FC = () => {
                 className="glass rounded-2xl overflow-hidden h-64"
               >
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0092699795644!2d77.58696797507514!3d12.971598587344692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3728456198987!2d72.90710667558875!3d19.135149982081508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b807e5f3ef61%3A0x937e3ffa2e86855b!2sHostel%205%2C%20IIT%20Bombay!5e0!3m2!1sen!2sin!4v1764939523399!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
