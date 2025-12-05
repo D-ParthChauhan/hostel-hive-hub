@@ -13,26 +13,27 @@ app.use(express.json());
 
 const MONGO_URI = process.env.MONGO_URI;
 
-let isConnected = false;
+let cached = global.mongoose;
 
-const connectDB = async () => {
-  if (isConnected) {
-    return;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    mongoose.set('strictQuery', false);
+    cached.promise = mongoose.connect(MONGO_URI).then((mongoose) => {
+      return mongoose;
+    });
   }
   
-  try {
-    mongoose.set('strictQuery', false);
-    const db = await mongoose.connect(MONGO_URI, {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      bufferCommands: false,
-    });
-    isConnected = db.connections[0].readyState === 1;
-  } catch (err) {
-    console.error('MongoDB Connection Error:', err);
-    throw err;
-  }
-};
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
 
 const authRoutes = require('../server/routes/auth');
 const complaintRoutes = require('../server/routes/complaints');
@@ -61,6 +62,7 @@ module.exports = async (req, res) => {
     await connectDB();
     return app(req, res);
   } catch (error) {
-    return res.status(500).json({ error: 'Database connection failed' });
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Connection failed', details: error.message });
   }
 };
