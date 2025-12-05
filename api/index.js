@@ -7,7 +7,8 @@ const app = express();
 
 app.use(cors({
   origin: '*',
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
@@ -21,6 +22,7 @@ const connectDB = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     isConnected = true;
+    console.log('MongoDB Connected');
   } catch (err) {
     console.error('MongoDB Connection Error:', err);
     throw err;
@@ -45,12 +47,16 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Hostel Hive Hub API is Running!' });
 });
 
-app.all('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+app.get('/', (req, res) => {
+  res.json({ message: 'Hostel Hive Hub API is Running!' });
 });
 
 module.exports = async (req, res) => {
-  await connectDB();
-  return app(req, res);
+  try {
+    await connectDB();
+    return app(req, res);
+  } catch (error) {
+    console.error('API Error:', error);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
 };
-
