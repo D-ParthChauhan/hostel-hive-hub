@@ -16,11 +16,18 @@ const MONGO_URI = process.env.MONGO_URI;
 let isConnected = false;
 
 const connectDB = async () => {
-  if (isConnected) return;
+  if (isConnected) {
+    return;
+  }
   
   try {
-    await mongoose.connect(MONGO_URI);
-    isConnected = true;
+    mongoose.set('strictQuery', false);
+    const db = await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false,
+    });
+    isConnected = db.connections[0].readyState === 1;
   } catch (err) {
     console.error('MongoDB Connection Error:', err);
     throw err;
@@ -50,6 +57,10 @@ app.all('*', (req, res) => {
 });
 
 module.exports = async (req, res) => {
-  await connectDB();
-  return app(req, res);
+  try {
+    await connectDB();
+    return app(req, res);
+  } catch (error) {
+    return res.status(500).json({ error: 'Database connection failed' });
+  }
 };
