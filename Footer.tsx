@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin,Facebook } from 'lucide-react';
-import logo from "@/assets/logo.png";
+import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from 'lucide-react';
+
 const Footer: React.FC = () => {
   return (
     <footer className="relative overflow-hidden">
@@ -18,27 +18,23 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <Link to="/" className="flex items-center gap-3 group">
-  <img
-    src={logo}
-    alt="Hostel Five Logo"
-    className="w-12 h-12 object-contain rounded-xl"
-  />
-  <span className="font-display font-bold text-xl tracking-tight">
-    Hostel <span className="gradient-text">Five</span>
-  </span>
-</Link>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-lg shadow-primary/30">
+                <span className="text-primary-foreground font-bold text-lg">5</span>
+              </div>
+              <span className="font-display font-bold text-xl">Hostel Five</span>
+            </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Where excellence meets community. Building leaders, fostering friendships, creating memories.
             </p>
             <div className="flex gap-3">
-              <a href="https://www.instagram.com/penthouse_h5_iitb" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
+              <a href="#" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="https://www.facebook.com/hostel5.iitb" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
-                <Facebook className="h-4 w-4" />
+              <a href="#" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
+                <Twitter className="h-4 w-4" />
               </a>
-              <a href="https://www.linkedin.com/company/hostel5/?originalSubdomain=in" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
+              <a href="#" className="p-2 rounded-lg glass hover:bg-primary/10 transition-colors">
                 <Linkedin className="h-4 w-4" />
               </a>
             </div>

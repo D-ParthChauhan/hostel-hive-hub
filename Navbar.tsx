@@ -5,8 +5,6 @@ import { Menu, X, Sun, Moon, User, LogOut, LayoutDashboard } from 'lucide-react'
 import { Button } from '../ui/button';
 import { useTheme } from '../../contexts/ThemeContext';
 import { cn } from '../../lib/utils';
-import logo from "@/assets/logo.png";
-
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -56,17 +54,14 @@ const Navbar: React.FC = () => {
       >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-  <img
-    src={logo}   // <-- change to your actual image path
-    alt="Hostel Five Logo"
-    className="w-12 h-12 object-contain rounded-xl"
-  />
-
-  <span className="font-display font-bold text-xl tracking-tight">
-    Hostel <span className="gradient-text">Five</span>
-  </span>
-</Link>
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-lg">
+                <span className="text-primary-foreground font-bold text-lg">5</span>
+              </div>
+              <span className="font-display font-bold text-xl tracking-tight">
+                Hostel <span className="gradient-text">Five</span>
+              </span>
+            </Link>
 
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (

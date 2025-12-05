@@ -15,18 +15,23 @@ import API, { createComplaint } from '@/services/api';
 // 1. For "Contact Us" (General Queries)
 // These emails will receive the general messages.
 const GENERAL_QUERY_RECIPIENTS = [
-  "warden.h5@institute.edu", 
-  "parthchauhan2701@gmail.com"
+  "h5warden@iitb.ac.in", 
+  "gsech5@iitb.ac.in"
 ];
 
 // 2. For "Complaints"
 // Maps the complaint type to the specific council member's email.
 const COMPLAINT_RECIPIENTS: Record<string, string> = {
-  "Electrical": "maintenance.sec@hostel5.edu",
-  "Carpentry": "maintenance.sec@hostel5.edu",
-  "Plumbing": "maintenance.sec@hostel5.edu",
-  "Cleaning": "health.sec@hostel5.edu",
-  "Other": "gsec.hostel5@institute.edu"
+  "Electrical": "maintcoh5@iitb.ac.in",
+  "Carpentry": "maintcoh5@iitb.ac.in",
+  "Plumbing": "maintcoh5@iitb.ac.in",
+  "Cleaning": "h5hallmgr@iitb.ac.in", // Assuming Hall Manager handles cleaning oversight or messcoh5 if applicable
+  "Mess": "messcoh5@iitb.ac.in",
+  "Cultural": "cultcoh5@iitb.ac.in",
+  "Tech": "techcoh5@iitb.ac.in",
+  "Sports": "sportscoh5@iitb.ac.in",
+  "Internet": "sysadh05@iitb.ac.in",
+  "Other": "gsech5@iitb.ac.in"
 };
 
 // --------------------------------------
@@ -335,10 +340,13 @@ const Contact: React.FC = () => {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="Electrical">Electrical</SelectItem>
-                            <SelectItem value="Carpentry">Carpentry</SelectItem>
-                            <SelectItem value="Plumbing">Plumbing</SelectItem>
-                            <SelectItem value="Cleaning">Cleaning</SelectItem>
-                            <SelectItem value="Other">Other</SelectItem>
+                        <SelectItem value="Plumbing">Plumbing</SelectItem>
+                        <SelectItem value="Carpentry">Carpentry</SelectItem>
+                        <SelectItem value="Cleaning">Cleaning / Hygiene</SelectItem>
+                        <SelectItem value="Mess">Mess / Food Quality</SelectItem>
+                        <SelectItem value="Internet">Internet / LAN</SelectItem>
+                        <SelectItem value="Sports">Sports Equipment</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
