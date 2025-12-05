@@ -5,8 +5,7 @@
   "outputDirectory": "client/dist",
   "functions": {
     "api/index.js": {
-      "maxDuration": 30,
-      "includeFiles": "server/**/*.js"
+      "maxDuration": 30
     }
   },
   "rewrites": [

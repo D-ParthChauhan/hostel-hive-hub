@@ -14,7 +14,6 @@ app.use(express.json());
 const MONGO_URI = process.env.MONGO_URI;
 
 let cached = global.mongoose;
-
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
@@ -35,12 +34,12 @@ async function connectDB() {
   return cached.conn;
 }
 
-const authRoutes = require('../server/routes/auth');
-const complaintRoutes = require('../server/routes/complaints');
-const communityRoutes = require('../server/routes/community');
-const eventRoutes = require('../server/routes/events');
-const userRoutes = require('../server/routes/users');
-const contactRoutes = require('../server/routes/contact');
+const authRoutes = require('./routes/auth');
+const complaintRoutes = require('./routes/complaints');
+const communityRoutes = require('./routes/community');
+const eventRoutes = require('./routes/events');
+const userRoutes = require('./routes/users');
+const contactRoutes = require('./routes/contact');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/complaints', complaintRoutes);
