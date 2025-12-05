@@ -8,7 +8,28 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { createComplaint } from '@/services/api';
+import API, { createComplaint } from '@/services/api';
+
+// --- EMAIL RECIPIENTS CONFIGURATION ---
+
+// 1. For "Contact Us" (General Queries)
+// These emails will receive the general messages.
+const GENERAL_QUERY_RECIPIENTS = [
+  "warden.h5@institute.edu", 
+  "parthchauhan2701@gmail.com"
+];
+
+// 2. For "Complaints"
+// Maps the complaint type to the specific council member's email.
+const COMPLAINT_RECIPIENTS: Record<string, string> = {
+  "Electrical": "maintenance.sec@hostel5.edu",
+  "Carpentry": "maintenance.sec@hostel5.edu",
+  "Plumbing": "maintenance.sec@hostel5.edu",
+  "Cleaning": "health.sec@hostel5.edu",
+  "Other": "gsec.hostel5@institute.edu"
+};
+
+// --------------------------------------
 
 const contactInfo = [
   {
@@ -52,23 +73,35 @@ const Contact: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle Contact Form Submission
+  // --- HANDLER: CONTACT US FORM ---
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate sending email to Warden and GSec
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Send to Backend
+      await API.post('/contact/send', {
+        type: 'GENERAL',
+        recipients: GENERAL_QUERY_RECIPIENTS,
+        data: contactForm
+      });
 
-    toast.success('Message sent successfully!', {
-      description: 'Copies have been forwarded to the Warden and General Secretary.',
-    });
+      toast.success('Message Sent Successfully', {
+        description: 'The Warden and General Secretary have been notified.',
+      });
 
-    setContactForm({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+      setContactForm({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error("Email error:", error);
+      toast.error('Failed to send message', {
+        description: 'Server error. Please try again later.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  // Handle Complaint Portal Submission
+  // --- HANDLER: COMPLAINT FORM ---
   const handleComplaintSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!complaintForm.type) {
@@ -79,24 +112,28 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Call backend API to save complaint
+      // 1. Save to Database (Existing functionality)
       await createComplaint(complaintForm);
 
-      // Determine concerned council member based on type
-      const concernedAuthority = 
-        ['Electrical', 'Plumbing', 'Carpentry'].includes(complaintForm.type) 
-          ? 'Maintenance Secretary' 
-          : 'General Secretary';
+      // 2. Determine Recipient
+      const targetEmail = COMPLAINT_RECIPIENTS[complaintForm.type] || COMPLAINT_RECIPIENTS["Other"];
+      
+      // 3. Send Email via Backend
+      await API.post('/contact/send', {
+        type: 'COMPLAINT',
+        recipients: [targetEmail], 
+        data: complaintForm
+      });
 
       toast.success('Complaint Registered', {
-        description: `Ticket created and notified to the ${concernedAuthority}.`,
+        description: `Ticket created and notified to the ${complaintForm.type} In-charge.`,
       });
 
       setComplaintForm({ studentName: '', roomNumber: '', type: '', description: '' });
     } catch (error) {
-      console.error(error);
+      console.error("Complaint error:", error);
       toast.error('Failed to register complaint', {
-        description: 'Please try again later or contact the admin directly.',
+        description: 'Could not connect to the server.',
       });
     } finally {
       setIsSubmitting(false);
@@ -105,10 +142,8 @@ const Contact: React.FC = () => {
 
   return (
     <Layout>
-      {/* Hero */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent" />
-        
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -119,18 +154,17 @@ const Contact: React.FC = () => {
               Contact & <span className="gradient-text">Support</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Have questions or facing issues in the hostel? Reach out to us or file a complaint directly through our portal.
+              Have questions or facing issues in the hostel? Reach out to us or file a complaint directly.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Content Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             
-            {/* Left Side: Contact Info & Map */}
+            {/* Left Side: Info & Map */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -158,15 +192,9 @@ const Contact: React.FC = () => {
                 ))}
               </div>
 
-              {/* Map */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="glass rounded-2xl overflow-hidden h-64 border border-white/20"
-              >
+              <div className="glass rounded-2xl overflow-hidden h-64 border border-white/20">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.7329603781347!2d72.91349507507746!3d19.11936198709191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7baf60d4373%3A0x606050626359560!2sHostel%205%2C%20IIT%20Bombay!5e0!3m2!1sen!2sin!4v1710928374621!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3728456198987!2d72.90710667558875!3d19.135149982081508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b807e5f3ef61%3A0x937e3ffa2e86855b!2sHostel%205%2C%20IIT%20Bombay!5e0!3m2!1sen!2sin!4v1764939523399!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -175,10 +203,10 @@ const Contact: React.FC = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Hostel Location"
                 />
-              </motion.div>
+              </div>
             </motion.div>
 
-            {/* Right Side: Forms (Tabs) */}
+            {/* Right Side: Forms */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -187,11 +215,11 @@ const Contact: React.FC = () => {
               <div className="glass-strong rounded-3xl p-8 border border-white/20">
                 <Tabs defaultValue="contact" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 mb-8 p-1 bg-muted/50 rounded-xl">
-                    <TabsTrigger value="contact" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm">Contact Us</TabsTrigger>
-                    <TabsTrigger value="complaint" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-destructive data-[state=active]:shadow-sm">File Complaint</TabsTrigger>
+                    <TabsTrigger value="contact" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-primary shadow-sm">Contact Us</TabsTrigger>
+                    <TabsTrigger value="complaint" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-destructive shadow-sm">File Complaint</TabsTrigger>
                   </TabsList>
 
-                  {/* Contact Us Form */}
+                  {/* Contact Form Content */}
                   <TabsContent value="contact">
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
@@ -227,7 +255,6 @@ const Contact: React.FC = () => {
                           />
                         </div>
                       </div>
-
                       <div>
                         <label className="text-sm font-medium mb-2 block">Subject</label>
                         <Input
@@ -238,7 +265,6 @@ const Contact: React.FC = () => {
                           className="rounded-xl"
                         />
                       </div>
-
                       <div>
                         <label className="text-sm font-medium mb-2 block">Message</label>
                         <Textarea
@@ -250,7 +276,6 @@ const Contact: React.FC = () => {
                           className="rounded-xl resize-none"
                         />
                       </div>
-
                       <Button
                         type="submit"
                         variant="glow"
@@ -264,7 +289,7 @@ const Contact: React.FC = () => {
                     </form>
                   </TabsContent>
 
-                  {/* Complaints Portal Form */}
+                  {/* Complaint Form Content */}
                   <TabsContent value="complaint">
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center text-destructive">
@@ -272,7 +297,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h2 className="font-display text-2xl font-bold">Complaints Portal</h2>
-                        <p className="text-muted-foreground text-sm">Issues will be routed to the relevant Council Member</p>
+                        <p className="text-muted-foreground text-sm">Priority notification to Council Members</p>
                       </div>
                     </div>
 
@@ -299,7 +324,6 @@ const Contact: React.FC = () => {
                           />
                         </div>
                       </div>
-
                       <div>
                         <label className="text-sm font-medium mb-2 block">Complaint Type</label>
                         <Select 
@@ -318,7 +342,6 @@ const Contact: React.FC = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
                       <div>
                         <label className="text-sm font-medium mb-2 block">Description</label>
                         <Textarea
@@ -330,7 +353,6 @@ const Contact: React.FC = () => {
                           className="rounded-xl resize-none"
                         />
                       </div>
-
                       <Button
                         type="submit"
                         variant="destructive"
