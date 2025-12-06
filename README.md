@@ -2,6 +2,13 @@ Hostel Hive Hub | Hostel 5 (The Penthouse)
 
 Web Brawl General Championship Submission
 
+
+IMPORTANT 
+MUST RUN THE SEED FILE BEFOREHAND IT LOADS THE COUNCIL.
+Login:- Council (Admin)	h5hallmgr@iitb.ac.in	Mr. Shamit Karnekar (Hall Manager)
+Student Council	techcoh5@iitb.ac.in	Adnan Shaikh (Tech Councilor)
+Passwords:- admin123 (for all)
+
 Project Overview
 
 Hostel Hive Hub is the official centralized digital platform designed for Hostel 5, IIT Bombay. This application streamlines hostel administration, facilitates seamless communication, and enhances community engagement between residents and the student council.
