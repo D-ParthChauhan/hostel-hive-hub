@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary" />
-                IIT Campus, Hostel 5
+                Hostel 5, IIT Area, Powai
               </li>
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-primary" />
-                +91 XXX XXX XXXX
+                +91 77769 92436
               </li>
             </ul>
           </motion.div>
