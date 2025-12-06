@@ -5,77 +5,82 @@ import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 
 const galleryImages = [
+  // --- Events & Achievements ---
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800',
-    title: 'Hostel Building',
-    category: 'Building',
+    src: 'https://i.ibb.co/20ZtxxKf/IMG-20251009-WA0001.jpg',
+    title: 'Gold in MDGC 2025',
+    category: 'Events',
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800',
-    title: 'Cultural Night',
+    src: 'https://i.ibb.co/Wb9Ps8V/IMG-20251004-WA0047.jpg',
+    title: 'Gold in Swachhta Pakhwada 2025',
     category: 'Events',
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800',
-    title: 'Common Room',
-    category: 'Facilities',
+    src: 'https://i.ibb.co/DPRx3PWc/ganapati-25.jpg',
+    title: 'Ganesh Chaturthi \'25',
+    category: 'Events',
   },
+
+  // --- Building & Campus ---
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800',
-    title: 'Sports Day',
-    category: 'Events',
+    src: 'https://i.ibb.co/Hf3PGcX1/green.jpg',
+    title: 'Hostel Wing',
+    category: 'Building',
   },
   {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
-    title: 'Gymnasium',
-    category: 'Facilities',
+    src: 'https://i.ibb.co/NnGt7kN6/hostel-front.jpg',
+    title: 'Hostel Entrance',
+    category: 'Building',
   },
   {
     id: 6,
-    src: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800',
-    title: 'Graduation Day',
-    category: 'Events',
+    src: 'https://i.ibb.co/gZRsj7YW/garden.jpg',
+    title: 'Green Space & Benches',
+    category: 'Building',
   },
+
+  // --- Facilities ---
   {
     id: 7,
-    src: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800',
-    title: 'Study Room',
+    src: 'https://i.ibb.co/Wpc9bwvr/mess.jpg',
+    title: 'Mess Dining Area',
     category: 'Facilities',
   },
   {
     id: 8,
-    src: 'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=800',
-    title: 'Fresher Welcome',
-    category: 'Events',
+    src: 'https://i.ibb.co/S7Z5ZhWJ/canteen.jpg',
+    title: 'H5 Canteen',
+    category: 'Facilities',
   },
   {
     id: 9,
-    src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-    title: 'Garden Area',
-    category: 'Building',
+    src: 'https://i.ibb.co/0RmRmmNr/study-room.jpg',
+    title: 'Study Room',
+    category: 'Facilities',
   },
   {
     id: 10,
-    src: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800',
-    title: 'Group Photo',
-    category: 'Events',
+    src: 'https://i.ibb.co/8LjTj38g/tecc2.jpg',
+    title: 'Tech Room Setup',
+    category: 'Facilities',
   },
   {
     id: 11,
-    src: 'https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=800',
-    title: 'Night View',
-    category: 'Building',
+    src: 'https://i.ibb.co/mYx73ZT/tech1.jpg',
+    title: 'Tech Room Interiors',
+    category: 'Facilities',
   },
   {
     id: 12,
-    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
-    title: 'Campus Sunrise',
-    category: 'Building',
+    src: 'https://i.ibb.co/6csxm4J9/tech3.jpg',
+    title: 'Tech Room Activity',
+    category: 'Facilities',
   },
 ];
 
